@@ -610,12 +610,13 @@ with tab3:
             st.write(df10)
     
     with st.container(border=True):
-        st.header("BAR-CHART")
-        data_1={"channel_name":[],"Video_count":[]}    
-        for i in CH_N:
-            db_1=collect.find({"Channel_information.channel_name":i},{"_id":False,"Channel_information":True})       
-            for i in db_1:
-                data_1["channel_name"].append(i["Channel_information"]["channel_name"])
-                data_1["Video_count"].append(int(i["Channel_information"]["Video_count"]))
-            df_1=pd.DataFrame(data_1)
-        st.bar_chart(df_1.set_index("channel_name"))
+      if len(CH_N)>0:
+            st.header("BAR-CHART")
+            data_1={"channel_name":[],"Video_count":[]}    
+            for i in CH_N:
+                db_1=collect.find({"Channel_information.channel_name":i},{"_id":False,"Channel_information":True})       
+                for i in db_1:
+                    data_1["channel_name"].append(i["Channel_information"]["channel_name"])
+                    data_1["Video_count"].append(int(i["Channel_information"]["Video_count"]))
+                df_1=pd.DataFrame(data_1)
+            st.bar_chart(df_1.set_index("channel_name"))
